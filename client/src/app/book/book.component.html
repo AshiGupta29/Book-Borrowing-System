@@ -1,0 +1,117 @@
+<div class="container" style="margin-top: 120px;">
+    <ng-container *ngIf="!books">
+        <div style="margin-top: 115px;">
+            No Book Available!
+        </div>
+        </ng-container>
+        <ng-container class="d-flex flex-md-row justify-content-between align-items-center pb-2">
+            <div class="d-flex mt-2">
+                <input (keyup.enter)="onSearch()" type="text" placeholder="Search Book" class="form-control me-2"
+                    #search>
+                <button (click)="onSearch()" class="btn btn-outline-primary mx-2">Search</button>
+                <button (click)="onReset()" class="btn btn-outline-secondary">Reset</button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="books">
+            <div class="container" >
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-light text-uppercase">
+                                <tr>
+                                    <th>
+                                        <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Book Name</div>
+                                    </th>
+                                    <th>
+                                        <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Author</div>
+                                    </th>
+                                    <th>
+                                        <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Genre</div>
+                                    </th>
+                                    <th>
+                                        <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Borrow</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <ng-container *ngIf="(accountService.currentUser$ | async)">
+                                <tr *ngFor="let book of books" >
+                                    <ng-container *ngIf="book.isBookAvailable">
+                                        <td (click)="open(content,book)" class="align-middle" style="font-size: large;"><strong>{{book.name}}</strong></td>
+                                        <td (click)="open(content,book)" class="align-middle" style="font-size: large;"><strong>{{book.author}}</strong></td>
+                                        <td (click)="open(content,book)" class="align-middle" style="font-size: large;"><strong>{{book.genre}}</strong></td>
+                                        <td class="align-middle">
+                                            <button *ngIf="(accountService.currentUser$ | async) && (accountService.currentUser$ | async)!.tokensAvailable > 0" class="btn btn-success" (click)="borrowBook(book)">Borrow</button>
+                                            <button *ngIf="(accountService.currentUser$ | async) && (accountService.currentUser$ | async)!.tokensAvailable === 0" class="btn btn-success" disabled="">Not Enough Token!</button>
+                                            <button *ngIf="(accountService.currentUser$ | async) === null" routerLink="/account/login" class="btn btn-success">Borrow</button>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                               </ng-container>
+        
+                               <ng-container *ngIf="(accountService.currentUser$ | async) === null">
+                                <tr *ngFor="let book of allBooks" >
+                                    <ng-container *ngIf="book.isBookAvailable">
+                                        <td (click)="open(content,book)" class="align-middle" style="font-size: large;"><strong>{{book.name}}</strong></td>
+                                        <td (click)="open(content,book)" class="align-middle" style="font-size: large;"><strong>{{book.author}}</strong></td>
+                                        <td (click)="open(content,book)" class="align-middle" style="font-size: large;"><strong>{{book.genre}}</strong></td>
+                                        <td class="align-middle">
+                                            <button routerLink="/account/login" class="btn btn-success">Borrow</button>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                               </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
+            </div>
+        </ng-container>
+        
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Book Details</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <img class="align-middle" routerLink="/" src="/assets/images/book.png" alt="book"
+                    style="max-height: 200px; margin-left: 120px;" />
+                <div>
+                    <h5 class="align-middle" style="font-weight: bold; font-size: 40px; margin-top: 20px; color: rgb(94, 94, 94);">{{ selectedBook?.name }}</h5>
+                </div>
+                <ng-container >
+                    <div>
+                        <span>
+                            <strong style="font-size: 20px;">Author : </strong>
+                        </span>
+                        <span class="text-dark" style="font-size: 20px;">{{selectedBook?.author}}</span>
+                    </div>
+                    <div>
+                        <span>
+                            <strong style="font-size: 20px;">Genre : </strong>
+                        </span>
+                        <span class="text-dark" style="font-size: 20px;">{{selectedBook?.genre}}</span>
+                    </div>
+                    <div>
+                        <span>
+                            <strong style="font-size: 20px;">Lender's Name : </strong>
+                        </span>
+                        <span class="text-dark" style="font-size: 20px;">{{selectedBook?.lentByUser}}</span>
+                    </div>
+                    <div>
+                        <span>
+                            <strong style="font-size: 20px;">Rating : </strong>
+                        </span>
+                        <span class="text-dark" style="font-size: 20px;">{{getStarRating(selectedBook?.rating)}} {{selectedBook?.rating}}/5</span>
+                    </div>
+                    <div>
+                        <span>
+                            <strong style="font-size: 20px;">Description : </strong>
+                        </span>
+                        <span class="text-dark" style="font-size: 20px;">{{selectedBook?.description}}</span>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-template>
+</div>

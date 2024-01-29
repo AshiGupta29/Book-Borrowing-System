@@ -1,0 +1,63 @@
+<div class="d-flex justify-content-center" style="margin-top: 150px;">
+    <div class="col-6">
+        <a class="d-flex justify-content-center mb-3" style="font-weight: 400; font-size: 50px; color: black;">Add Book</a>
+        <form [formGroup]="addBook" (ngSubmit)="onSubmit(addBook)">
+            <div class="form-group">
+                <label for="name">Book Name</label>
+                <input type="text" class="form-control mb-2" id="name" formControlName="name">
+                <div class="text-danger"
+                    *ngIf="addBook.get('name')?.invalid && (addBook.get('name')?.dirty || addBook.get('name')?.touched)">
+                    <div *ngIf="addBook.get('name')?.errors?.['required']">Book Name is required.</div>
+                    <div *ngIf="addBook.get('name')?.errors?.['maxLength']">Book Name cannot exceed 20 characters.</div>
+                    <div *ngIf="addBook.get('name')?.errors?.['pattern']">Book Name can only contain alphabets</div>
+                </div>
+                
+                
+                <label for="rating">Rating</label>
+                <input type="text" class="form-control mb-2" id="rating" formControlName="rating">
+                <div class="text-danger"
+                    *ngIf="addBook.get('rating')?.invalid && (addBook.get('rating')?.dirty || addBook.get('rating')?.touched)">
+                    <div *ngIf="addBook.get('rating')?.errors?.['required']">Rating is required.</div>
+                    <div *ngIf="addBook.get('rating')?.errors?.['pattern']">Please enter a value 0-5</div>
+                </div>
+                
+                <label for="author">Author</label>
+                <input type="text" class="form-control mb-2" id="author" formControlName="author">
+                <div class="text-danger"
+                    *ngIf="addBook.get('author')?.invalid && (addBook.get('author')?.dirty || addBook.get('author')?.touched)">
+                    <div *ngIf="addBook.get('author')?.errors?.['required']">Author is required.</div>
+                    <div *ngIf="addBook.get('author')?.errors?.['maxLength']">Author cannot exceed 20 characters.</div>
+                    <div *ngIf="addBook.get('author')?.errors?.['pattern']">Author can only contain alphabets</div>
+                </div>
+                
+                <label for="genre">Genre</label>
+                <input type="text" class="form-control mb-2" id="genre" formControlName="genre">
+                <div class="text-danger"
+                    *ngIf="addBook.get('genre')?.invalid && (addBook.get('genre')?.dirty || addBook.get('genre')?.touched)">
+                    <div *ngIf="addBook.get('genre')?.errors?.['required']">Genre is required.</div>
+                    <div *ngIf="addBook.get('genre')?.errors?.['maxLength']">Genre cannot exceed 20 characters.</div>
+                    <div *ngIf="addBook.get('genre')?.errors?.['pattern']">Genre can only contain alphabets</div>
+                </div>
+                
+                <label for="description">Description</label>
+                <input type="text" class="form-control mb-2" id="description" formControlName="description">
+                <div class="text-danger"
+                    *ngIf="addBook.get('description')?.invalid && (addBook.get('description')?.dirty || addBook.get('description')?.touched)">
+                    <div *ngIf="addBook.get('description')?.errors?.['required']">Description is required.</div>
+                    <div *ngIf="addBook.get('description')?.errors?.['maxLength']">Description cannot exceed 20 characters.</div>
+                    <div *ngIf="addBook.get('description')?.errors?.['pattern']">Description can only contain alphabets</div>
+                </div>
+                
+
+            </div>
+            <div class="d-grid">
+                <div class="d-flex justify-content-start gap-2">
+                    <button [disabled]="addBook.invalid" class="btn btn-lg btn-success mt-3 mb-3"
+                        type="submit">Add</button>
+                    <button class="btn btn-lg btn-secondary mt-3 mb-3" (click)="resetForm()" type="reset">Reset</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

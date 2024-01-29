@@ -1,0 +1,18 @@
+<div class="form-floating mb-3">
+    <input 
+      type={{type}} 
+      [formControl]="control"
+      placeholder="{{label}}"
+      class="form-control"
+      
+      [ngClass]="(control.touched) ? control.invalid ? 'is-invalid' : 'is-valid' : null"
+    >
+    <div *ngIf="control.status === 'PENDING'" class="fa fa-spinner fa-spin loader"></div>
+    <label for="floatingInput">{{label}}</label>
+    <div *ngIf="control.errors?.['required']" class="invalid-feedback">Please enter your {{label}}</div>
+    <div *ngIf="control.errors?.['numberLength']" class="invalid-feedback">Phone Number must have 10-Digit only</div>
+    <div *ngIf="control.errors?.['email']" class="invalid-feedback">Invalid email address</div>
+    <div *ngIf="control.errors?.['pattern']" class="invalid-feedback">Password must have 1 alphabet, 1 number, 1 non alphanumeric and at least 8 characters</div>
+    <div *ngIf="control.errors?.['emailExists']" class="invalid-feedback">Email address already exists</div>
+    <div *ngIf="control.errors?.['passwordMatch']" class="invalid-feedback">Password does not match</div>
+  </div>

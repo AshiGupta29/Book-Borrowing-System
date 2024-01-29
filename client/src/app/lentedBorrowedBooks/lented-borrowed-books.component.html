@@ -1,0 +1,125 @@
+<ng-container>
+    <div class="container" *ngIf="lentedBooks" style="margin-top: 115px;">
+        <div class="row">
+            <div class="table-responsive">
+                <a class="py-4 text-uppercase"
+                    style="font-weight: bold; font-size: x-large;color: rgb(91, 37, 37);">Lented Books</a>
+                <table class="table">
+                    <thead class="bg-light text-uppercase">
+                        <tr>
+                            <th>
+                                <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Book Name</div>
+                            </th>
+                            <th>
+                                <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Author</div>
+                            </th>
+                            <th>
+                                <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Genre</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let book of lentedBooks">
+                            <ng-container>
+                                <td (click)="open(content,book)" class="align-middle" style="font-size: large;">
+                                    <strong>{{book.name}}</strong></td>
+                                <td (click)="open(content,book)" class="align-middle" style="font-size: large;">
+                                    <strong>{{book.author}}</strong></td>
+                                <td (click)="open(content,book)" class="align-middle" style="font-size: large;">
+                                    <strong>{{book.genre}}</strong></td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container>
+    <div class="container" *ngIf="borrowedBooks">
+        <div class="row">
+            <div class="table-responsive">
+                <a class="py-4 text-uppercase"
+                    style="font-weight: bold; font-size: x-large;color: rgb(91, 37, 37);">Borrowed Books</a>
+                <table class="table">
+                    <thead class="bg-light text-uppercase">
+                        <tr>
+                            <th>
+                                <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Book Name</div>
+                            </th>
+                            <th>
+                                <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Author</div>
+                            </th>
+                            <th>
+                                <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Genre</div>
+                            </th>
+                            <th>
+                                <div class="py-4" style="font-size: larger;color: rgb(178, 15, 15);">Return</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let book of borrowedBooks">
+                            <ng-container>
+                                <td (click)="open(content,book)" class="align-middle" style="font-size: large;">
+                                    <strong>{{book.name}}</strong></td>
+                                <td (click)="open(content,book)" class="align-middle" style="font-size: large;">
+                                    <strong>{{book.author}}</strong></td>
+                                <td (click)="open(content,book)" class="align-middle" style="font-size: large;">
+                                    <strong>{{book.genre}}</strong></td>
+                                <td class="align-middle">
+                                    <button routerLink="/" (click)="returnBook(book)" class="btn btn-success">Return</button>
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</ng-container>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Book Details</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <img class="align-middle" routerLink="/" src="/assets/images/book.png" alt="book"
+            style="max-height: 200px; margin-left: 120px;" />
+        <div>
+            <h5 class="align-middle"
+                style="font-weight: bold; font-size: 40px; margin-top: 20px; color: rgb(94, 94, 94);">{{
+                selectedBook?.name }}</h5>
+        </div>
+        <ng-container>
+            <div>
+                <span>
+                    <strong style="font-size: 20px;">Author : </strong>
+                </span>
+                <span class="text-dark" style="font-size: 20px;">{{selectedBook?.author}}</span>
+            </div>
+            <div>
+                <span>
+                    <strong style="font-size: 20px;">Genre : </strong>
+                </span>
+                <span class="text-dark" style="font-size: 20px;">{{selectedBook?.genre}}</span>
+            </div>
+            <div>
+                <span>
+                    <strong style="font-size: 20px;">Rating : </strong>
+                </span>
+                <span class="text-dark" style="font-size: 20px;">{{getStarRating(selectedBook?.rating)}}
+                    {{selectedBook?.rating}}/5</span>
+            </div>
+            <div>
+                <span>
+                    <strong style="font-size: 20px;">Description : </strong>
+                </span>
+                <span class="text-dark" style="font-size: 20px;">{{selectedBook?.description}}</span>
+            </div>
+        </ng-container>
+    </div>
+</ng-template>

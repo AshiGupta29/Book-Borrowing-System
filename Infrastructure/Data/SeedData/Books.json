@@ -1,0 +1,23 @@
+[
+    {
+      "Name": "Universe",
+      "Rating": 4,
+      "Author": "Christopher",
+      "Genre": "Science",
+      "IsBookAvailable" : true,
+      "Description": "Learn more about universe",
+      "LentByUserId": 2
+    },
+    {
+      "Name": "Gupta Dynasty",
+      "Rating": 4,
+      "Author": "Chandragupta",
+      "Genre": "History",
+      "IsBookAvailable" : true,
+      "Description": "Learn more about Guptas",
+      "LentByUserId": 1,
+      "CurrentlyBorrowedByUserId": 3
+    }
+  ]
+  
+  
